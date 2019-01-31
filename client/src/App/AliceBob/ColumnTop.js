@@ -6,10 +6,16 @@ const ColumnTop = styled.div`
   align-items: center;
   width: 100%;
 
+  h2 {
+    font-size: 3.2rem;
+    margin: 0;
+  }
+
   span[role='img'] {
     position: relative;
     width: 100%;
     height: 90px;
+    margin-top: 16px;
   }
 
   span[role='img']:after {

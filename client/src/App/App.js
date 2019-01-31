@@ -1,20 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-import AliceList from './Alice/AliceList';
+import AliceBob from './AliceBob';
 import GlobalStyle from '../shared/styles/GlobalStyle';
-import Grid from '../shared/styles/Grid';
 
 const App = () => (
-  <Grid>
-    <div>
-      <h1>Alice</h1>
-      <AliceList />
-    </div>
-    <div>
-      <h1>Bob</h1>
-    </div>
+  <Fragment>
+    <AliceBob />
     <GlobalStyle />
-  </Grid>
+  </Fragment>
 );
 
 export default App;

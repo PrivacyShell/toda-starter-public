@@ -4,10 +4,7 @@ const Transaction = styled.li`
   list-style: none;
   text-align: left;
   padding: 0;
-  /* padding-top: 4px;
-  :first-of-type {
-    padding-top: 0;
-  } */
+  font-size: 1.6rem;
 `;
 
 export default Transaction;

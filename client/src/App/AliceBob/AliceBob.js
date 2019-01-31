@@ -7,7 +7,7 @@ import GenerateFileButton from './GenerateFileButton';
 import TransactionList from './TransactionList';
 import Transaction from './Transaction';
 
-const Greeting = () => (
+const AliceBob = () => (
   <Container>
     <Column>
       <ColumnTop>
@@ -34,4 +34,4 @@ const Greeting = () => (
   </Container>
 );
 
-export default Greeting;
+export default AliceBob;
