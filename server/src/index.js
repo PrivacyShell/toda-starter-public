@@ -24,7 +24,7 @@ app.get('/getAccountFiles/:id', (req, res) => {
   const id = req.params.id;
   const files = getAccountFiles(id);
 
-  files.then(json => json).then(response => res.send(response));
+  files.then(json => res.send(json));
 });
 
 const port = process.env.PORT || 4000;

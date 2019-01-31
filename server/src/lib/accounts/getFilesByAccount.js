@@ -10,7 +10,7 @@ const getFilesByAccount = id => {
         'x-api-key': process.env.API_KEY,
       },
     })
-    .then(res => console.log(res.data.data))
+    .then(res => res.data.data)
     .catch(error => console.log(error));
 };
 
