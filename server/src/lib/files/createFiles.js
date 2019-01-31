@@ -22,8 +22,8 @@ const sampleData = {
   },
 };
 
-const createFile = (data) => {
-  axios
+const createFile = data => {
+  return axios
     .post('https://api.todaqfinance.net/files', data, {
       headers: {
         'Content-Type': 'application/json',

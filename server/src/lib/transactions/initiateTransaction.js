@@ -2,33 +2,34 @@ const axios = require('axios');
 
 const sampleData = {
   data: {
-    attributes: {
-      quantity: 10,
-    },
     relationships: {
       sender: {
         data: {
           type: 'account',
-          id: '<sender-account-id>',
+          id: '47b60873-9e94-49f4-9fc1-d05eacde441f',
         },
       },
       recipient: {
         data: {
           type: 'account',
-          id: '<recipient-account-id>',
+          id: '51da5aa2-1a44-47a2-b05d-e54299825884',
         },
       },
-      'file-type': {
-        data: {
-          id: 'fac3bcfd03fdf23ad9a25df0eb713291c0ce63d4b0b22afb8e7c71436d6289f6',
-        },
+      files: {
+        data: [
+          {
+            type: 'file',
+            id:
+              'd5a29e7681bca6c90a08f3c4fb00cd358364a9b65ecab7892dfc17d557890d7c',
+          },
+        ],
       },
     },
   },
 };
 
-const bulkFilesOfType = (data) => {
-  axios
+const initiateTransaction = data => {
+  return axios
     .post('https://api.todaqfinance.net/transactions', data, {
       headers: {
         'Content-Type': 'application/json',
@@ -39,4 +40,4 @@ const bulkFilesOfType = (data) => {
     .catch(error => console.log(error));
 };
 
-export default bulkFilesOfType;
+export default initiateTransaction;

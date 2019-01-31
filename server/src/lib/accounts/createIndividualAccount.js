@@ -23,8 +23,8 @@ const sampleData = {
   },
 };
 
-const createIndividualAccount = (data) => {
-  axios
+const createIndividualAccount = data => {
+  return axios
     .post('https://api.todaqfinance.net/accounts', data, {
       headers: {
         'Content-Type': 'application/json',

@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const getAccounts = () => {
   return axios
@@ -15,4 +15,4 @@ const getAccounts = () => {
     .catch(error => console.log(error));
 };
 
-module.exports = getAccounts;
+export default getAccounts;

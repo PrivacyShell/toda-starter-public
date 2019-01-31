@@ -2,33 +2,35 @@ const axios = require('axios');
 
 const sampleData = {
   data: {
-    type: 'file',
     attributes: {
-      payload: {
-        id: '1a3c1e04-ab62-4c44-b4a3-873f5d50c07d',
-        type: 'loyalty-token',
-        'member-type': 'gold',
-      },
+      quantity: 10,
     },
     relationships: {
-      'initial-account': {
+      sender: {
         data: {
           type: 'account',
-          id: '<account-id>',
+          id: '<sender-account-id>',
+        },
+      },
+      recipient: {
+        data: {
+          type: 'account',
+          id: '<recipient-account-id>',
         },
       },
       'file-type': {
         data: {
-          id: '<file-type-id>',
+          id:
+            'fac3bcfd03fdf23ad9a25df0eb713291c0ce63d4b0b22afb8e7c71436d6289f6',
         },
       },
     },
   },
 };
 
-const createFile = (data) => {
-  axios
-    .post('https://api.todaqfinance.net/files', data, {
+const bulkFilesOfType = data => {
+  return axios
+    .post('https://api.todaqfinance.net/transactions', data, {
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': process.env.API_KEY,
@@ -38,4 +40,4 @@ const createFile = (data) => {
     .catch(error => console.log(error));
 };
 
-export default createFile;
+export default bulkFilesOfType;
