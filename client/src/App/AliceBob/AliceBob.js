@@ -20,11 +20,11 @@ const AliceBob = ({ createFile, aliceFiles, bobFiles }) => (
         </GenerateFileButton>
       </ColumnTop>
       <TransactionList>
-        {aliceFiles.data ? (
-          aliceFiles.data.map((file) => {
+        {aliceFiles.data && Array.isArray(bobFiles.data) ? (
+          aliceFiles.data.map((file, i) => {
             const { id, type } = file.attributes.payload;
             return (
-              <Transaction key={id}>
+              <Transaction key={id + i}>
                 ID: {id}, type: {type}
               </Transaction>
             );
@@ -43,11 +43,11 @@ const AliceBob = ({ createFile, aliceFiles, bobFiles }) => (
         </GenerateFileButton>
       </ColumnTop>
       <TransactionList>
-        {bobFiles.data ? (
-          bobFiles.data.map((file) => {
+        {bobFiles.data && Array.isArray(bobFiles.data) ? (
+          bobFiles.data.map((file, i) => {
             const { id, type } = file.attributes.payload;
             return (
-              <Transaction className="bob" key={`${id}bob`}>
+              <Transaction className="bob" key={`${id + i}bob`}>
                 ID: {id}, type: {type}
               </Transaction>
             );

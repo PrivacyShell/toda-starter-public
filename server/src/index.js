@@ -1,55 +1,56 @@
-import express from 'express';
-import createFile from './lib/files/createFile';
-import getAccounts from './lib/accounts/getAccounts';
-import getAccountFiles from './lib/accounts/getFilesByAccount';
+import express from "express";
+import createFile from "./lib/files/createFile";
+import getAccounts from "./lib/accounts/getAccounts";
+import getAccountFiles from "./lib/accounts/getFilesByAccount";
+import uniqid from "uniqid";
 
-require('dotenv').config();
+require("dotenv").config();
 
 const app = express();
 
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept',
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept",
   );
   next();
 });
 
-app.get('/getAccounts', (req, res) => {
+app.get("/getAccounts", (req, res) => {
   const accounts = getAccounts();
   accounts.then(json => res.send(json));
 });
 
-app.get('/getAccountFiles/:id', (req, res) => {
+app.get("/getAccountFiles/:id", (req, res) => {
   const { id } = req.params;
   const files = getAccountFiles(id);
 
   files.then(json => res.send(json));
 });
 
-app.get('/createFile/:type/:owner', (req, res) => {
+app.get("/createFile/:type/:owner", (req, res) => {
   const { owner, type } = req.params;
 
   const data = {
     data: {
-      type: 'file',
+      type: "file",
       attributes: {
         payload: {
-          id: '0',
+          id: uniqid(),
           type: type,
         },
       },
       relationships: {
-        'initial-account': {
+        "initial-account": {
           data: {
-            type: 'account',
+            type: "account",
             id: owner,
           },
         },
-        'file-type': {
+        "file-type": {
           data: {
-            id: '0',
+            id: "0",
           },
         },
       },
