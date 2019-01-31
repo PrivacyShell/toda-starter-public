@@ -34,7 +34,7 @@ const createFile = data => {
         'x-api-key': process.env.API_KEY,
       },
     })
-    .then(res => console.log(res))
+    .then(res => res.data.data)
     .catch(error => console.log(error));
 };
 
