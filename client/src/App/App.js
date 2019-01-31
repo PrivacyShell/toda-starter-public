@@ -1,22 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
 
 import AliceBob from './AliceBob';
 import GlobalStyle from '../shared/styles/GlobalStyle';
 
+import { BobID, AliceID } from '../shared/Constants';
+
 const url = 'http://localhost:4000';
 
 const App = () => {
-  const createFile = (type, person) => {
-    // make call then update data
-    axios.get(`${url}/createFile/${type}/${person}`).then(res => console.log(res));
-    // after creating file update list
-    // return updateData;
-  };
+  const [aliceFiles, setAliceFiles] = useState([]);
+  const [bobFiles, setBobFiles] = useState([]);
+
+  const getAccountFiles = id => axios
+    .get(`${url}/getAccountFiles/${id}`)
+    .then(res => (id === AliceID ? setAliceFiles(res) : setBobFiles(res)));
+
+  const createFile = (type, personId) => axios.get(`${url}/createFile/${type}/${personId}`).then(() => getAccountFiles(personId));
+
+  useEffect(() => {
+    const initialBobFiles = () => getAccountFiles(BobID);
+    const initialAliceFiles = () => getAccountFiles(AliceID);
+
+    setBobFiles(initialBobFiles);
+    setAliceFiles(initialAliceFiles);
+  }, []);
 
   return (
     <Fragment>
-      <AliceBob createFile={createFile} />
+      <AliceBob createFile={createFile} bobFiles={bobFiles} aliceFiles={aliceFiles} />
       <GlobalStyle />
     </Fragment>
   );
