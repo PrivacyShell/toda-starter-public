@@ -1,5 +1,5 @@
 import express from 'express';
-import getAccounts from './helpers/accounts/getAccounts';
+import getAccounts from './lib/accounts/getAccounts';
 
 require('dotenv').config();
 
