@@ -19,7 +19,7 @@ const ColumnTop = styled.div`
   }
 
   span[role='img']:after {
-    content: '👩‍💻';
+    content: '👩🏾‍💻';
     position: absolute;
     top: 0;
     bottom: 0;
@@ -29,14 +29,14 @@ const ColumnTop = styled.div`
   }
 
   :hover span[role='img']:after {
-    content: '💁';
+    content: '💁🏾';
   }
 
   span[aria-label='Bob']:after {
-    content: '👨‍💻';
+    content: '👨🏽‍💻';
   }
   :hover span[aria-label='Bob']:after {
-    content: '🙋‍♂️';
+    content: '🙋🏽‍♂️';
   }
 `;
 

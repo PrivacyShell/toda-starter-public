@@ -27,8 +27,8 @@ const AliceBob = () => (
         <GenerateFileButton>Create an Orange</GenerateFileButton>
       </ColumnTop>
       <TransactionList>
-        <Transaction>Halo</Transaction>
-        <Transaction>Wie gehts?</Transaction>
+        <Transaction className="bob">Halo</Transaction>
+        <Transaction className="bob">Wie gehts?</Transaction>
       </TransactionList>
     </Column>
   </Container>
