@@ -12,6 +12,10 @@ const Column = styled.button`
   :hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
+
+  :active {
+    transform: translateY(1px);
+  }
 `;
 
 export default Column;
