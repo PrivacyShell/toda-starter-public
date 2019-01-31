@@ -1,5 +1,7 @@
 import express from 'express';
+import createFile from './lib/files/createFile';
 import getAccounts from './lib/accounts/getAccounts';
+import getAccountFiles from './lib/accounts/getFilesByAccount';
 
 require('dotenv').config();
 
@@ -16,9 +18,47 @@ app.use(function(req, res, next) {
 
 app.get('/getAccounts', (req, res) => {
   const accounts = getAccounts();
-  accounts.then(json => {
-    res.send(json);
-  });
+  accounts.then(json => res.send(json));
+});
+
+app.get('/getAccountFiles/:id', (req, res) => {
+  const { id } = req.params;
+  const files = getAccountFiles(id);
+
+  files.then(json => res.send(json));
+});
+
+app.get('/createFile/:type/:owner', (req, res) => {
+  const { owner, type } = req.params;
+
+  const data = {
+    data: {
+      type: 'file',
+      attributes: {
+        payload: {
+          id: '0',
+          type: type,
+        },
+      },
+      relationships: {
+        'initial-account': {
+          data: {
+            type: 'account',
+            id: owner,
+          },
+        },
+        'file-type': {
+          data: {
+            id: '0',
+          },
+        },
+      },
+    },
+  };
+
+  const file = createFile(data);
+
+  file.then(json => res.send(json));
 });
 
 const port = process.env.PORT || 4000;
