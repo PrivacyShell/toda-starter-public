@@ -5,7 +5,7 @@ const TransactionList = styled.ul`
   min-height: 24px;
   background-color: white;
   margin: 0;
-  padding: 4px;
+  padding: 0;
   margin-top: 16px;
   border-top: 1px solid lightgrey;
 `;

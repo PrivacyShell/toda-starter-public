@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import axios from 'axios';
 
-import AliceList from './Alice/AliceList';
+import AliceBob from './AliceBob';
 import GlobalStyle from '../shared/styles/GlobalStyle';
-import Grid from '../shared/styles/Grid';
 
-const App = () => (
-  <Grid>
-    <div>
-      <h1>Alice</h1>
-      <AliceList />
-    </div>
-    <div>
-      <h1>Bob</h1>
-    </div>
-    <GlobalStyle />
-  </Grid>
-);
+const url = 'http://localhost:4000';
+
+const App = () => {
+  const createFile = (type, person) => {
+    // make call then update data
+    axios.get(`${url}/createFile/${type}/${person}`).then(res => console.log(res));
+    // after creating file update list
+    // return updateData;
+  };
+
+  return (
+    <Fragment>
+      <AliceBob createFile={createFile} />
+      <GlobalStyle />
+    </Fragment>
+  );
+};
 
 export default App;
