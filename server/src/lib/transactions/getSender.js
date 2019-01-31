@@ -1,10 +1,10 @@
 const axios = require('axios');
 
-const sampleId = '2e5aac45-4bc5-4202-9cc8-6e0998b8baac';
+const sampleId = 'cfced8db-c087-4520-80af-8bfeae715c16';
 
-const getAccountById = (id) => {
-  axios
-    .get(`https://api.todaqfinance.net/accounts/${id}`, {
+const getSender = id => {
+  return axios
+    .get(`https://api.todaqfinance.net/transactions/${id}/sender`, {
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': process.env.API_KEY,
@@ -14,4 +14,4 @@ const getAccountById = (id) => {
     .catch(error => console.log(error));
 };
 
-export default getAccountById;
+export default getSender;

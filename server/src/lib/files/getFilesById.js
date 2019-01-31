@@ -1,10 +1,11 @@
 const axios = require('axios');
 
-const sampleId = '2e5aac45-4bc5-4202-9cc8-6e0998b8baac';
+const sampleId =
+  '732c13b30c60a466728468e3d77f3a1c5fb75f3071d5d16b5dafb2a1e03adf75';
 
-const getFilesByAccount = (id) => {
-  axios
-    .get(`https://api.todaqfinance.net/accounts/${id}/files?page=1&limit=100`, {
+const getFilesById = id => {
+  return axios
+    .get(`https://api.todaqfinance.net/files/${id}/files?page=1&limit=100`, {
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': process.env.API_KEY,
@@ -14,4 +15,4 @@ const getFilesByAccount = (id) => {
     .catch(error => console.log(error));
 };
 
-export default getFilesByAccount;
+export default getFilesById;

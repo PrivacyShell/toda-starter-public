@@ -13,7 +13,7 @@ const sampleData = {
 };
 
 const updateInfo = (data, id) => {
-  axios
+  return axios
     .patch(`https://api.todaqfinance.net/accounts/${id}`, data, {
       headers: {
         'Content-Type': 'application/json',

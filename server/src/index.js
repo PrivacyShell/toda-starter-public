@@ -1,5 +1,5 @@
-const express = require('express');
-const getAccounts = require('./helpers/accounts/getAccounts');
+import express from 'express';
+import getAccounts from './lib/accounts/getAccounts';
 
 require('dotenv').config();
 
@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/getAccounts', (req, res, next) => {
+app.get('/getAccounts', (req, res) => {
   const accounts = getAccounts();
   accounts.then(json => {
     res.send(json);
@@ -24,4 +24,4 @@ app.get('/getAccounts', (req, res, next) => {
 const port = process.env.PORT || 4000;
 
 app.listen(port);
-console.log(`Listening on port ${port}`);
+console.log(`Listening on port ${port} 🚀`);
