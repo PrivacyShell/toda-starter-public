@@ -2,13 +2,14 @@ import express from "express";
 import createFile from "./lib/files/createFile";
 import getAccounts from "./lib/accounts/getAccounts";
 import getAccountFiles from "./lib/accounts/getFilesByAccount";
+import initiateTransaction from "./lib/transactions/initiateTransaction";
 import uniqid from "uniqid";
 
 require("dotenv").config();
 
 const app = express();
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -27,6 +28,40 @@ app.get("/getAccountFiles/:id", (req, res) => {
   const files = getAccountFiles(id);
 
   files.then(json => res.send(json));
+});
+
+app.get("/transactions/:sender/:recipient/:files", (req, res) => {
+  const { sender, recipient, files } = req.params;
+
+  const data = {
+    data: {
+      relationships: {
+        sender: {
+          data: {
+            type: "account",
+            id: sender,
+          },
+        },
+        recipient: {
+          data: {
+            type: "account",
+            id: recipient,
+          },
+        },
+        files: {
+          data: [
+            {
+              type: "file",
+              id: files,
+            },
+          ],
+        },
+      },
+    },
+  };
+
+  const transaction = initiateTransaction(data);
+  transaction.then(json => res.send(json));
 });
 
 app.get("/createFile/:type/:owner", (req, res) => {
