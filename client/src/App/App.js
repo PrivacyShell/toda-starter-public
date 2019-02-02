@@ -1,38 +1,28 @@
-import React, { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
+import React, { Fragment, useEffect, useState } from 'react';
 
-import AliceBob from './AliceBob';
+import createFile from '../shared/helpers/createFile';
 import GlobalStyle from '../shared/styles/GlobalStyle';
+import reRenderFiles from '../shared/helpers/reRenderFiles';
+import url from '../shared/constants/url';
 
-import { BobID, AliceID } from '../shared/Constants';
-
-const url = 'http://localhost:4000';
+import Users from './Users';
 
 const App = () => {
   const [aliceFiles, setAliceFiles] = useState([]);
   const [bobFiles, setBobFiles] = useState([]);
 
-  const getAccountFiles = id => axios
-    .get(`${url}/getAccountFiles/${id}`)
-    .then(res => (id === AliceID ? setAliceFiles(res) : setBobFiles(res)));
-
-  const createFile = (type, personId) => axios.get(`${url}/createFile/${type}/${personId}`).then(() => getAccountFiles(personId));
-
-  const reRenderFiles = () => {
-    const initialBobFiles = () => getAccountFiles(BobID);
-    const initialAliceFiles = () => getAccountFiles(AliceID);
-
-    setBobFiles(initialBobFiles);
-    setAliceFiles(initialAliceFiles);
+  const sendFile = (sender, recipient, files) => {
+    axios
+      .get(`${url}/transactions/${sender}/${recipient}/${files}`)
+      .then(() => reRenderFiles(setAliceFiles, setBobFiles));
   };
 
-  const sendFile = (sender, recipient, files) => axios.get(`${url}/transactions/${sender}/${recipient}/${files}`).then(() => reRenderFiles());
-
-  useEffect(() => reRenderFiles(), []);
+  useEffect(() => reRenderFiles(setAliceFiles, setBobFiles), []);
 
   return (
     <Fragment>
-      <AliceBob
+      <Users
         createFile={createFile}
         bobFiles={bobFiles}
         aliceFiles={aliceFiles}
