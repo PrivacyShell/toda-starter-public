@@ -18,17 +18,26 @@ const App = () => {
 
   const createFile = (type, personId) => axios.get(`${url}/createFile/${type}/${personId}`).then(() => getAccountFiles(personId));
 
-  useEffect(() => {
+  const reRenderFiles = () => {
     const initialBobFiles = () => getAccountFiles(BobID);
     const initialAliceFiles = () => getAccountFiles(AliceID);
 
     setBobFiles(initialBobFiles);
     setAliceFiles(initialAliceFiles);
-  }, []);
+  };
+
+  const sendFile = (sender, recipient, files) => axios.get(`${url}/transactions/${sender}/${recipient}/${files}`).then(() => reRenderFiles());
+
+  useEffect(() => reRenderFiles(), []);
 
   return (
     <Fragment>
-      <AliceBob createFile={createFile} bobFiles={bobFiles} aliceFiles={aliceFiles} />
+      <AliceBob
+        createFile={createFile}
+        bobFiles={bobFiles}
+        aliceFiles={aliceFiles}
+        sendFile={sendFile}
+      />
       <GlobalStyle />
     </Fragment>
   );

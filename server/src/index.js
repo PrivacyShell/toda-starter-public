@@ -1,68 +1,38 @@
-import express from "express";
-import createFile from "./lib/files/createFile";
-import getAccounts from "./lib/accounts/getAccounts";
-import getAccountFiles from "./lib/accounts/getFilesByAccount";
-import uniqid from "uniqid";
+import express from 'express';
 
-require("dotenv").config();
+import createFile from './lib/services/createTodaFile';
+import getAccountFiles from './lib/services/getAccountFiles';
+import initiateTransaction from './lib/services/initiateTransaction';
 
+require('dotenv').config();
+
+// Instantiate Express Server
 const app = express();
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
+// Set API Header
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
   res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept",
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept',
   );
   next();
 });
 
-app.get("/getAccounts", (req, res) => {
-  const accounts = getAccounts();
-  accounts.then(json => res.send(json));
-});
+// Get All Files for Account
+app.get('/getAccountFiles/:id', (req, res) => getAccountFiles(req, res));
 
-app.get("/getAccountFiles/:id", (req, res) => {
-  const { id } = req.params;
-  const files = getAccountFiles(id);
+// Initiate Transaction of File from Sender to Receiver
+app.get('/transactions/:sender/:recipient/:file', (req, res) =>
+  initiateTransaction(req, res),
+);
 
-  files.then(json => res.send(json));
-});
+// Create New File
+app.get('/createFile/:type/:owner', (req, res) => createFile(req, res));
 
-app.get("/createFile/:type/:owner", (req, res) => {
-  const { owner, type } = req.params;
-
-  const data = {
-    data: {
-      type: "file",
-      attributes: {
-        payload: {
-          id: uniqid(),
-          type: type,
-        },
-      },
-      relationships: {
-        "initial-account": {
-          data: {
-            type: "account",
-            id: owner,
-          },
-        },
-        "file-type": {
-          data: {
-            id: "0",
-          },
-        },
-      },
-    },
-  };
-
-  const file = createFile(data);
-
-  file.then(json => res.send(json));
-});
-
+// Set Port for Server
 const port = process.env.PORT || 4000;
 
+// Start Server
 app.listen(port);
 console.log(`Listening on port ${port} 🚀`);

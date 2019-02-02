@@ -9,7 +9,9 @@ import Transaction from './Transaction';
 
 import { BobID, AliceID } from '../../shared/Constants';
 
-const AliceBob = ({ createFile, aliceFiles, bobFiles }) => (
+const AliceBob = ({
+  createFile, aliceFiles, bobFiles, sendFile,
+}) => (
   <Container>
     <Column>
       <ColumnTop>
@@ -20,17 +22,19 @@ const AliceBob = ({ createFile, aliceFiles, bobFiles }) => (
         </GenerateFileButton>
       </ColumnTop>
       <TransactionList>
-        {aliceFiles.data && Array.isArray(bobFiles.data) ? (
+        {aliceFiles.data && Array.isArray(aliceFiles.data) ? (
           aliceFiles.data.map((file, i) => {
             const { id, type } = file.attributes.payload;
+            const todaId = file.id;
+            console.log(AliceID, BobID, todaId);
             return (
-              <Transaction key={id + i}>
+              <Transaction key={id + i} onClick={() => sendFile(AliceID, BobID, todaId)}>
                 ID: {id}, type: {type}
               </Transaction>
             );
           })
         ) : (
-          <p>loading bruh</p>
+          <p>Loading...</p>
         )}
       </TransactionList>
     </Column>
@@ -46,14 +50,19 @@ const AliceBob = ({ createFile, aliceFiles, bobFiles }) => (
         {bobFiles.data && Array.isArray(bobFiles.data) ? (
           bobFiles.data.map((file, i) => {
             const { id, type } = file.attributes.payload;
+            const todaId = file.id;
             return (
-              <Transaction className="bob" key={`${id + i}bob`}>
+              <Transaction
+                className="bob"
+                key={`${id + i}bob`}
+                onClick={() => sendFile(BobID, AliceID, todaId)}
+              >
                 ID: {id}, type: {type}
               </Transaction>
             );
           })
         ) : (
-          <p>loading bruh</p>
+          <p>Loading...</p>
         )}
       </TransactionList>
     </Column>
