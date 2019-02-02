@@ -18,7 +18,7 @@ const Users = ({
     </Column>
     <Column>
       <TopColumn createFile={createFile} id={AliceID} name="Bob" type="Orange" />
-      <Transactions files={bobFiles} receiver={AliceID} sender={BobID} sendFile={sendFile} />
+      <Transactions bob files={bobFiles} receiver={AliceID} sender={BobID} sendFile={sendFile} />
     </Column>
   </Container>
 );

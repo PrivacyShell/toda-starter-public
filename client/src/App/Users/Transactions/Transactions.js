@@ -5,7 +5,7 @@ import Transaction from './Transaction';
 import TransactionList from './TransactionList';
 
 const Transactions = ({
-  files, receiver, sender, sendFile,
+  bob, files, receiver, sender, sendFile,
 }) => (
   <TransactionList>
     {files.data && Array.isArray(files.data) ? (
@@ -14,7 +14,11 @@ const Transactions = ({
         const todaId = file.id;
 
         return (
-          <Transaction key={`${id}-alice`} onClick={() => sendFile(sender, receiver, todaId)}>
+          <Transaction
+            key={`${id}-alice`}
+            onClick={() => sendFile(sender, receiver, todaId)}
+            className={bob ? 'bob' : ''}
+          >
             ID: {id}, type: {type}
           </Transaction>
         );
@@ -26,6 +30,7 @@ const Transactions = ({
 );
 
 Transactions.propTypes = {
+  bob: PropTypes.string,
   files: PropTypes.array,
   receiver: PropTypes.string,
   sender: PropTypes.string,
@@ -33,6 +38,7 @@ Transactions.propTypes = {
 };
 
 Transactions.defaultProps = {
+  bob: '',
   files: [],
   receiver: '',
   sender: '',
