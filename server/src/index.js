@@ -1,4 +1,6 @@
 import express from 'express';
+import uniqid from 'uniqid';
+
 import createFile from './lib/files/createFile';
 import getAccounts from './lib/accounts/getAccounts';
 import getAccountFiles from './lib/accounts/getFilesByAccount';
@@ -36,7 +38,7 @@ app.get('/createFile/:type/:owner', (req, res) => {
       type: 'file',
       attributes: {
         payload: {
-          id: '0',
+          id: uniqid(),
           type: type,
         },
       },
