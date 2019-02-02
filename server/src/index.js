@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 app.get('/getAccountFiles/:id', (req, res) => getAccountFiles(req, res));
 
 // Initiate Transaction of File from Sender to Receiver
-app.get('/transactions/:sender/:recipient/:files', (req, res) =>
+app.get('/transactions/:sender/:recipient/:file', (req, res) =>
   initiateTransaction(req, res),
 );
 

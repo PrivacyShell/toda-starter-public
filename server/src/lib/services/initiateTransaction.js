@@ -1,7 +1,7 @@
 import initiateTransaction from '../helpers/transactions/initiateTransaction';
 
 const transaction = (req, res) => {
-  const { sender, recipient, files } = req.params;
+  const { sender, recipient, file } = req.params;
 
   const data = {
     data: {
@@ -22,7 +22,7 @@ const transaction = (req, res) => {
           data: [
             {
               type: 'file',
-              id: files,
+              id: file,
             },
           ],
         },
