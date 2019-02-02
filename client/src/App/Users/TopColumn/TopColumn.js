@@ -10,9 +10,7 @@ const TopColumn = ({
   <ColumnTop>
     <span role="img" aria-label={name} />
     <h2>{name}</h2>
-    <GenerateFileButton onClick={() => createFile('Apple', id)}>
-      Create an {type}
-    </GenerateFileButton>
+    <GenerateFileButton onClick={() => createFile(type, id)}>Create an {type}</GenerateFileButton>
   </ColumnTop>
 );
 
