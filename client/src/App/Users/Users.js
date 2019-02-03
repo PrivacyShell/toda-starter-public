@@ -9,15 +9,29 @@ import Transactions from './Transactions';
 import { BobID, AliceID } from '../../shared/constants/id';
 
 const Users = ({
-  aliceFiles, bobFiles, createFile, sendFile,
+  aliceFiles, bobFiles, createFile, sendFile, setAliceFiles, setBobFiles,
 }) => (
   <Container>
     <Column>
-      <TopColumn createFile={createFile} id={AliceID} name="Alice" type="Apple" />
+      <TopColumn
+        setAliceFiles={setAliceFiles}
+        setBobFiles={setBobFiles}
+        createFile={createFile}
+        id={AliceID}
+        name="Alice"
+        type="Apple"
+      />
       <Transactions files={aliceFiles} receiver={BobID} sender={AliceID} sendFile={sendFile} />
     </Column>
     <Column>
-      <TopColumn createFile={createFile} id={AliceID} name="Bob" type="Orange" />
+      <TopColumn
+        setAliceFiles={setAliceFiles}
+        setBobFiles={setBobFiles}
+        createFile={createFile}
+        id={BobID}
+        name="Bob"
+        type="Orange"
+      />
       <Transactions bob files={bobFiles} receiver={AliceID} sender={BobID} sendFile={sendFile} />
     </Column>
   </Container>
@@ -28,6 +42,8 @@ Users.propTypes = {
   bobFiles: PropTypes.array,
   createFile: PropTypes.func,
   sendFile: PropTypes.func,
+  setAliceFiles: PropTypes.func,
+  setBobFiles: PropTypes.func,
 };
 
 Users.defaultProps = {
@@ -35,6 +51,8 @@ Users.defaultProps = {
   bobFiles: [],
   createFile: () => {},
   sendFile: () => {},
+  setAliceFiles: () => {},
+  setBobFiles: () => {},
 };
 
 export default Users;

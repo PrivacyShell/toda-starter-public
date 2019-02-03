@@ -9,13 +9,13 @@ const Transactions = ({
 }) => (
   <TransactionList>
     {files.data && Array.isArray(files.data) ? (
-      files.data.map((file) => {
+      files.data.map((file, i) => {
         const { id, type } = file.attributes.payload;
         const todaId = file.id;
 
         return (
           <Transaction
-            key={`${id}-alice`}
+            key={`${id}${i}-alice`}
             onClick={() => sendFile(sender, receiver, todaId)}
             className={bob ? 'bob' : ''}
           >
@@ -30,7 +30,7 @@ const Transactions = ({
 );
 
 Transactions.propTypes = {
-  bob: PropTypes.string,
+  bob: PropTypes.bool,
   files: PropTypes.array,
   receiver: PropTypes.string,
   sender: PropTypes.string,
@@ -38,7 +38,7 @@ Transactions.propTypes = {
 };
 
 Transactions.defaultProps = {
-  bob: '',
+  bob: false,
   files: [],
   receiver: '',
   sender: '',

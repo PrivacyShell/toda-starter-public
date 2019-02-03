@@ -27,6 +27,8 @@ const App = () => {
         bobFiles={bobFiles}
         aliceFiles={aliceFiles}
         sendFile={sendFile}
+        setBobFiles={setBobFiles}
+        setAliceFiles={setAliceFiles}
       />
       <GlobalStyle />
     </Fragment>
